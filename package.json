@@ -1,0 +1,21 @@
+{
+  "name": "s2js",
+  "description": "Native addon which wraps around s2client-api.",
+  "version": "0.0.1",
+  "author": "Mator",
+  "copyright": "© 2018, Mator",
+  "repository": "https://github.com/matortheeternal/s2js",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "configure": "node-gyp configure",
+    "build": "node-gyp build --debug"
+  },
+  "devDependencies": {
+    "node-gyp": "^3.8.0"
+  },
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.11.1"
+  }
+}
