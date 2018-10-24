@@ -28,8 +28,8 @@ let updateStats = function() {
 };
 
 let isResourceUnit = function(unit) {
-    return unit.types.includes(UNIT_CLASS_IDS.MINERAL) ||
-        unit.types.includes(UNIT_CLASS_IDS.GEYSER);
+    return unit.classes.includes(UNIT_CLASS_IDS.MINERAL) ||
+        unit.classes.includes(UNIT_CLASS_IDS.GEYSER);
 };
 
 let getUnitInfo = function(unit) {
@@ -39,8 +39,8 @@ let getUnitInfo = function(unit) {
 };
 
 let buildUnit = function(tag) {
-    let types = s2js.GetUnitTypes(tag),
-        unit = { tag, types };
+    let classes = s2js.GetUnitClasses(tag),
+        unit = { tag, classes };
     return Object.assign(unit, getUnitInfo(unit));
 };
 
@@ -58,7 +58,7 @@ let updateUnits = function() {
 };
 
 let storeUnit = function(unit) {
-    unit.types.forEach(unitTypeId => {
+    unit.classes.forEach(unitTypeId => {
         let unitClass = UNIT_CLASSES[unitTypeId],
             targetArray = units[unitClass];
         if (!targetArray) return;
@@ -86,9 +86,11 @@ let getDistance = function(u1, u2) {
     );
 };
 
-let getClosestUnit = function(a, source) {
+let getMineral = function(source, maxWorkers) {
     let closestDistance = 9999999;
-    return a.reduce((target, unit) => {
+    return units.MINERAL.reduce((target, unit) => {
+        if (unit.workers && unit.workers.length >= maxWorkers)
+            return target;
         let d = getDistance(unit, source);
         if (d < closestDistance) {
             closestDistance = d;
@@ -98,16 +100,19 @@ let getClosestUnit = function(a, source) {
     }, null);
 };
 
+let harvestMinerals = function(worker, mineral) {
+    if (!mineral.workers) mineral.workers = [];
+    mineral.workers.push(worker);
+    worker.mineral = mineral;
+    s2js.CommandUnit(worker.tag, ABILITY_IDS.HARVEST_GATHER_SCV, mineral.tag);
+};
+
 let mineMinerals = function() {
-    let availableMinerals = units.MINERAL.filter(m => !m.worker),
-        availableWorkers = units.WORKER.filter(w => !w.mineral);
+    let availableWorkers = units.WORKER.filter(w => !w.mineral);
     availableWorkers.forEach(worker => {
         if (worker.mineral) return;
-        let mineral = getClosestUnit(availableMinerals, worker);
-        removeEntry(mineral, availableMinerals);
-        mineral.worker = worker;
-        worker.mineral = mineral;
-        s2js.CommandUnit(worker.tag, ABILITY_IDS.HARVEST_GATHER_SCV, mineral.tag);
+        let mineral = getMineral(worker, 2);
+        harvestMinerals(worker, mineral);
     });
 };
 
