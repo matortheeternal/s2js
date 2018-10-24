@@ -9,6 +9,9 @@ applyEnums(s2js, require('./src/js/unitClasses'), 'UNIT_CLASSES', 'UNIT_CLASS_ID
 applyEnums(s2js, require('./src/js/abilities'), 'ABILITIES', 'ABILITY_IDS');
 applyEnums(s2js, require('./src/js/buffs'), 'BUFFS');
 applyEnums(s2js, require('./src/js/upgrades'), 'UPGRADES');
+applyEnums(s2js, require('./src/js/alliances'), 'ALLIANCES');
+applyEnums(s2js, require('./src/js/displayTypes'), 'DISPLAY_TYPES');
+applyEnums(s2js, require('./src/js/cloakStates'), 'CLOAK_STATES');
 
 let addParticipant = {
     bot: lib.AddBot,
