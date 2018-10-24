@@ -22,6 +22,7 @@ Object.assign(s2js, {
         });
         lib.StartGame(options.map);
     },
+    GetGameStatus: lib.GetGameStatus,
     Update: lib.Update,
     GetStats: lib.GetStats,
     GetUnits: lib.GetUnits,
