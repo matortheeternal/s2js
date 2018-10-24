@@ -1,14 +1,16 @@
 let s2js = require('../index');
-let {UNIT_TYPES, ABILITIES} = s2js;
+let {UNIT_TYPES, UNIT_TYPE_IDS, ABILITY_IDS, RACE_IDS} = s2js;
+let mapPath = `${__dirname}\\BelShirVestigeLE.SC2Map`;
 
 s2js.StartGame({
     participants: [{
         type: 'bot',
-        race: s2js.RACES.Terran
+        race: RACE_IDS.Terran
     }, {
         type: 'computer',
-        race: s2js.RACES.Zerg
-    }]
+        race: RACE_IDS.Zerg
+    }],
+    map: mapPath
 });
 
 let updateCount = 0;
@@ -26,8 +28,8 @@ let updateStats = function() {
 };
 
 let isResourceUnit = function(unit) {
-    return unit.types.includes(UNIT_TYPES.MINERAL) ||
-        unit.types.includes(UNIT_TYPES.GEYSER);
+    return unit.types.includes(UNIT_TYPE_IDS.MINERAL) ||
+        unit.types.includes(UNIT_TYPE_IDS.GEYSER);
 };
 
 let getUnitInfo = function(unit) {
@@ -57,7 +59,7 @@ let updateUnits = function() {
 
 let storeUnit = function(unit) {
     unit.types.forEach(unitTypeId => {
-        let unitType = s2js.UNIT_TYPE[unitTypeId],
+        let unitType = UNIT_TYPES[unitTypeId],
             targetArray = units[unitType];
         if (!targetArray) return;
         targetArray.push(unit);
@@ -105,14 +107,14 @@ let mineMinerals = function() {
         removeEntry(mineral, availableMinerals);
         mineral.worker = worker;
         worker.mineral = mineral;
-        s2js.CommandUnit(worker.tag, ABILITIES.HARVEST_GATHER_SCV, mineral.tag);
+        s2js.CommandUnit(worker.tag, ABILITY_IDS.HARVEST_GATHER_SCV, mineral.tag);
     });
 };
 
 let trainWorkers = function() {
     let mainBase = units.TOWN_HALL[0];
     for (let i = stats.minerals; i >= 50; i -= 50) {
-        s2js.CommandUnit(mainBase.tag, ABILITIES.TRAIN_SCV);
+        s2js.CommandUnit(mainBase.tag, ABILITY_IDS.TRAIN_SCV);
     }
 };
 
@@ -121,12 +123,21 @@ let executeActions = function() {
     trainWorkers();
 };
 
-while (s2js.Update()) {
-    updateCount++;
-    if (updateCount % 5 !== 1) continue;
-    updateStats();
-    updateUnits();
-    storeUnits();
-    executeActions();
-}
+let checkStatus = function(cb) {
+    let status = s2js.GetGameStatus();
+    console.log(status);
+    if (status === "Game started") return cb();
+    if (status !== "Initializing") throw new Error(status);
+    setTimeout(() => checkStatus(cb), 100);
+};
 
+checkStatus(() => {
+    while (s2js.Update()) {
+        updateCount++;
+        if (updateCount % 5 !== 1) continue;
+        updateStats();
+        updateUnits();
+        storeUnits();
+        executeActions();
+    }
+});

@@ -9,7 +9,8 @@
   "main": "index.js",
   "scripts": {
     "configure": "node-gyp configure",
-    "build": "node-gyp build --debug"
+    "build": "node-gyp build --debug",
+    "test": "node ./test/test.js"
   },
   "devDependencies": {
     "node-gyp": "^3.8.0"
