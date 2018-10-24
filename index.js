@@ -21,8 +21,10 @@ Object.assign(s2js, {
             addParticipant[p.type](p.race);
         });
         lib.StartGame(options.map);
+        let status = lib.GetGameStatus();
+        if (status !== 'Game started')
+            throw new Error(`Game didn\'t start, ${status}`);
     },
-    GetGameStatus: lib.GetGameStatus,
     Update: lib.Update,
     GetStats: lib.GetStats,
     GetUnits: lib.GetUnits,

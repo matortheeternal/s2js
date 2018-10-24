@@ -123,21 +123,11 @@ let executeActions = function() {
     trainWorkers();
 };
 
-let checkStatus = function(cb) {
-    let status = s2js.GetGameStatus();
-    console.log(status);
-    if (status === "Game started") return cb();
-    if (status !== "Initializing") throw new Error(status);
-    setTimeout(() => checkStatus(cb), 100);
-};
-
-checkStatus(() => {
-    while (s2js.Update()) {
-        updateCount++;
-        if (updateCount % 5 !== 1) continue;
-        updateStats();
-        updateUnits();
-        storeUnits();
-        executeActions();
-    }
-});
+while (s2js.Update()) {
+    updateCount++;
+    if (updateCount % 5 !== 1) continue;
+    updateStats();
+    updateUnits();
+    storeUnits();
+    executeActions();
+}
