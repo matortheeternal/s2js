@@ -1,0 +1,21 @@
+module.exports = {
+    MINERAL: 0,
+    GEYSER: 1,
+    WORKER: 2,
+    STRUCTURE: 3,
+    AIR: 4,
+    GROUND: 5,
+    TOWN_HALL: 6,
+    PROVIDES_FOOD: 7,
+    GAS_STRUCTURE: 8,
+    ATTACKS_GROUND: 9,
+    ATTACKS_AIR: 10,
+    TRAINS_UNITS: 11,
+    UPGRADES_UNITS: 12,
+    TRANSPORTS_UNITS: 13,
+    SUPPORTS_UNITS: 14,
+    SPAWNING: 15,
+    CLOAKING: 16,
+    DETECTOR: 17,
+    BOMB: 18
+};

@@ -2,7 +2,7 @@
 #include "sc2lib/sc2_lib.h"
 #include <stdlib.h>
 #include "api.h"
-#include "unit_types.h"
+#include "unit_classes.h"
 #include <nan.h>
 
 using namespace sc2;
@@ -125,15 +125,15 @@ Tag StrToTag(char* str) {
 	return strtoull(str, NULL, 16);
 }
 
-NAN_METHOD(GetUnitTypes) {
+NAN_METHOD(GetUnitClasses) {
 	v8::String::Utf8Value str(info[0]);
 	Tag tag = StrToTag((char*)(*str));
 	const ObservationInterface* o = bot.Observation();
 	const Unit* unit = o->GetUnit(tag);
-	std::vector<uint8_t> unitTypes = Util::GetUnitTypes(unit);
-	v8::Local<v8::Array> a = Nan::New<v8::Array>(unitTypes.size());
-	for (int i = 0; i < unitTypes.size(); i++) {
-		Nan::Set(a, i, Nan::New(unitTypes.at(i)));
+	std::vector<uint8_t> unitClasses = Util::GetUnitClasses(unit);
+	v8::Local<v8::Array> a = Nan::New<v8::Array>(unitClasses.size());
+	for (int i = 0; i < unitClasses.size(); i++) {
+		Nan::Set(a, i, Nan::New(unitClasses.at(i)));
 	}
 	info.GetReturnValue().Set(a);
 }
@@ -179,7 +179,7 @@ NAN_METHOD(GetResourceInfo) {
 	const Unit* unit = o->GetUnit(tag);
 	v8::Local<v8::Object> obj = Nan::New<v8::Object>();
 	Nan::Set(obj, nstr("pos"), GetPosition(unit));
-	uint8_t resourceType = Util::GetResourceType(unit);
+	uint8_t resourceType = Util::GetResourceClass(unit);
 	if (resourceType == Util::MINERAL) {
 		Nan::Set(obj, nstr("contents"), Nan::New(unit->mineral_contents));
 	} else if (resourceType == Util::GEYSER) {

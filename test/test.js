@@ -1,5 +1,5 @@
 let s2js = require('../index');
-let {UNIT_TYPES, UNIT_TYPE_IDS, ABILITY_IDS, RACE_IDS} = s2js;
+let {UNIT_CLASSES, UNIT_CLASS_IDS, ABILITY_IDS, RACE_IDS} = s2js;
 let mapPath = `${__dirname}\\BelShirVestigeLE.SC2Map`;
 
 s2js.StartGame({
@@ -28,8 +28,8 @@ let updateStats = function() {
 };
 
 let isResourceUnit = function(unit) {
-    return unit.types.includes(UNIT_TYPE_IDS.MINERAL) ||
-        unit.types.includes(UNIT_TYPE_IDS.GEYSER);
+    return unit.types.includes(UNIT_CLASS_IDS.MINERAL) ||
+        unit.types.includes(UNIT_CLASS_IDS.GEYSER);
 };
 
 let getUnitInfo = function(unit) {
@@ -59,8 +59,8 @@ let updateUnits = function() {
 
 let storeUnit = function(unit) {
     unit.types.forEach(unitTypeId => {
-        let unitType = UNIT_TYPES[unitTypeId],
-            targetArray = units[unitType];
+        let unitClass = UNIT_CLASSES[unitTypeId],
+            targetArray = units[unitClass];
         if (!targetArray) return;
         targetArray.push(unit);
     });

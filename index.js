@@ -4,11 +4,11 @@ let { applyEnums } = require('./src/js/helpers');
 let s2js = {};
 
 applyEnums(s2js, require('./src/js/races'), 'RACES');
-applyEnums(s2js, require('./src/js/units'), 'UNITS');
+applyEnums(s2js, require('./src/js/unitTypes'), 'UNIT_TYPES');
+applyEnums(s2js, require('./src/js/unitClasses'), 'UNIT_CLASSES', 'UNIT_CLASS_IDS');
 applyEnums(s2js, require('./src/js/abilities'), 'ABILITIES', 'ABILITY_IDS');
 applyEnums(s2js, require('./src/js/buffs'), 'BUFFS');
 applyEnums(s2js, require('./src/js/upgrades'), 'UPGRADES');
-applyEnums(s2js, require('./src/js/unitTypes'), 'UNIT_TYPES');
 
 let addParticipant = {
     bot: lib.AddBot,
@@ -26,7 +26,7 @@ Object.assign(s2js, {
     Update: lib.Update,
     GetStats: lib.GetStats,
     GetUnits: lib.GetUnits,
-    GetUnitTypes: lib.GetUnitTypes,
+    GetUnitClasses: lib.GetUnitClasses,
     GetUnitInfo: lib.GetUnitInfo,
     GetResourceInfo: lib.GetResourceInfo,
     CommandUnit: lib.CommandUnit

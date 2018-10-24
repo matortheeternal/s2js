@@ -5,7 +5,7 @@
       "sources": [
         "src/cpp/api.cc",
         "src/cpp/s2js.cc",
-        "src/cpp/unit_types.cc"
+        "src/cpp/unit_classes.cc"
       ],
       "libraries": [
         "$(S2API_ROOT)/build_vs2017/bin/civetweb",

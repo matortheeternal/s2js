@@ -20,7 +20,7 @@ NAN_METHOD(GetGameStatus);
 NAN_METHOD(Update);
 NAN_METHOD(GetStats);
 NAN_METHOD(GetUnits);
-NAN_METHOD(GetUnitTypes);
+NAN_METHOD(GetUnitClasses);
 NAN_METHOD(GetUnitInfo);
 NAN_METHOD(GetResourceInfo);
 NAN_METHOD(CommandUnit);

@@ -1,13 +1,13 @@
 #include "sc2api/sc2_api.h"
 #include "sc2lib/sc2_lib.h"
 #include <stdlib.h>
-#include "unit_types.h"
+#include "unit_classes.h"
 
 using namespace sc2;
 
 namespace Util {
 
-uint8_t GetResourceType(const sc2::Unit* unit) {
+uint8_t GetResourceClass(const sc2::Unit* unit) {
   const UnitTypeID &type_id = unit->unit_type;
   switch(type_id.ToType()) {
     case UNIT_TYPEID::NEUTRAL_BATTLESTATIONMINERALFIELD:
@@ -33,7 +33,7 @@ uint8_t GetResourceType(const sc2::Unit* unit) {
   throw "Cannot get resource type for non-resource unit";
 }
 
-std::vector<uint8_t> GetUnitTypes(const sc2::Unit* unit) {
+std::vector<uint8_t> GetUnitClasses(const sc2::Unit* unit) {
   const UnitTypeID &type_id = unit->unit_type;
   switch(type_id.ToType()) {
     // === NEUTRAL ===
