@@ -6,7 +6,13 @@ Native node addon which wraps around [s2client-api](https://github.com/blizzard/
 npm install matortheeternal/s2js --save
 ```
 
-See [the test bot](https://github.com/matortheeternal/test/test.js) for an example.
+See [the test bot](https://github.com/matortheeternal/s2js/blob/master/test/test.js) for an example of a bot that trains SCVs and assigns them to harvest minerals.
+
+## Testing
+1. Clone this repository.
+2. Run `node-gyp configure`.
+3. Run `npm run build`.
+4. Run `npm run test`.
 
 ## Plans
 - Create a fleshed-out bot using the API and expand the API functionality to match its needs.
@@ -35,7 +41,7 @@ Every enumeration in the API has both an ID to name map and a name to ID map.  T
 - `RACE_IDS.Terran` - The unique ID for the Terran race.
 
 ### StartGame(options)
-Starts a new StarCraft 2 game.
+Starts a new StarCraft 2 game.  Throws an error if the game fails to start.
 
 **arguments:**  
 `options` - Required options to start the game.
@@ -46,14 +52,6 @@ Starts a new StarCraft 2 game.
 
 **returns:**  
 Nothing.
-
-### GetGameStatus()
-Gets the current status of the game.
-
-**returns:**  
-* `'Initializing'` - The game hasn't started yet.
-* `'Game started'` - The game has been started and you can now use `Update()` and start controlling your bot.
-* Any other value - An error has occurred.  The status returned is the error message.
 
 
 ### Update()
@@ -138,10 +136,10 @@ Commands a unit to use move or use an ability.
 
 ### Part 1: Prerequisites
 1. Clone [s2client-api](https://github.com/blizzard/s2client-api) and build it on your machine.  
-2. Create an environmental variable `S2API_ROOT` set to the directory where you cloned `s2client-api`.  E.g. `E:\dev\git\s2client-api`
-3. Install [NodeJS 8.x LTS](https://nodejs.org/en/).  Verify installation by running the following commands from the command line: `npm -v` and `node -v`.
-4. Install [Python 2.7.x](https://www.python.org/downloads/) (unless it is already installed).
-5. Install windows-build-tools from the command line by the following command: `npm install --global windows-build-tools`
+2. Create an environmental variable `S2API_ROOT` set to the directory where you cloned `s2client-api`.
+3. Install [NodeJS 8.x LTS](https://nodejs.org/en/).  Verify by running the following commands from the command line: `npm -v` and `node -v`.
+4. Install [Python 2.7.x](https://www.python.org/downloads/).
+5. Install windows-build-tools from the command line via: `npm install --global windows-build-tools`
 
 ### Part 2: Setting up
 1. Create a folder/local repository for you bot's code.
@@ -167,7 +165,7 @@ s2js.StartGame({
 });
 
 while (s2js.Update()) {
-    // call your bot code here
+    // your bot code here
 }
 ```
 
