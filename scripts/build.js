@@ -10,8 +10,8 @@ function build() {
     let proc = child_process.spawn(process.execPath, args, {
         stdio: [0, 1, 2],
         env: {
-            S2API_ROOT: process.env.s2api_root,
-            PATH: process.env.path
+            S2API_ROOT: process.env.S2API_ROOT,
+            PATH: process.env.PATH
         }
     });
 
