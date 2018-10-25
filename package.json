@@ -8,14 +8,13 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "configure": "node-gyp configure",
-    "build": "node-gyp build --debug",
-    "test": "node ./test/test.js"
-  },
-  "devDependencies": {
-    "node-gyp": "^3.8.0"
+    "install": "node ./scripts/install.js",
+    "test": "node ./test/test.js",
+    "build": "node ./scripts/build.js",
+    "postinstall": "node ./scripts/build.js"
   },
   "dependencies": {
+    "node-gyp": "^3.8.0",
     "bindings": "^1.2.1",
     "nan": "^2.11.1"
   }
