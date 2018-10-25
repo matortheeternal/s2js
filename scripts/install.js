@@ -15,9 +15,9 @@ const libPaths = [
 
 const clientApiMissingError =
     'Could not find s2client-api. \n'+
-    'Clone from https://github.com/blizzard/s2client-api, follow '+
-    'the instructions to build it and create an environment variable'+
-    '`S2API_ROOT` which points to the root folder of the repository.';
+    'Clone from https://github.com/blizzard/s2client-api, follow \n'+
+    'the instructions to build it and create an environment variable \n'+
+    '`S2API_ROOT` which points to the root folder of the repository.\n';
 
 function canInstall() {
     return process.env.S2API_ROOT &&
