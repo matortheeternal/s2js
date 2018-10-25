@@ -7,12 +7,13 @@ function build() {
         'rebuild', '--debug'
     ];
     console.log('Building:', [process.execPath].concat(args).join(' '));
+    let env = Object.keys(process.env).reduce((fixedEnv, key) => {
+        fixedEnv[key.toUpperCase()] = process.env[key];
+        return fixedEnv;
+    }, {});
     let proc = child_process.spawn(process.execPath, args, {
         stdio: [0, 1, 2],
-        env: {
-            S2API_ROOT: process.env.S2API_ROOT,
-            PATH: process.env.PATH
-        }
+        env: env
     });
 
     proc.on('exit', function(errorCode) {
