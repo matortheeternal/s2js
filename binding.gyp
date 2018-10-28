@@ -7,6 +7,18 @@
         "src/cpp/s2js.cc",
         "src/cpp/unit_classes.cc"
       ],
+      'cflags_cc!': ['-fno-rtti', '-fno-exceptions'],
+      'conditions':
+      [
+        ['OS=="mac"',
+          {
+            'xcode_settings': {
+              'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+              'GCC_ENABLE_CPP_RTTI': 'YES',
+            }
+          },
+        ],
+      ],
       "libraries": [
         "$(S2API_ROOT)/$(BUILD_FOLDER)/bin/civetweb",
         "$(S2API_ROOT)/$(BUILD_FOLDER)/bin/libprotobufd",
