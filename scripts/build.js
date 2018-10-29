@@ -3,7 +3,7 @@ let fs = require('fs'),
     child_process = require('child_process');
 
 function getBuildFolder() {
-    return ['build_vs2017', 'build_vs2015'].find(folder => {
+    return ['build_vs2017', 'build_vs2015', 'build'].find(folder => {
         let fullPath = path.join(process.env.S2API_ROOT, folder);
         return fs.existsSync(fullPath);
     });

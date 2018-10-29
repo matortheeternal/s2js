@@ -1,7 +1,7 @@
 let path = require('path'),
     fs = require('fs');
 
-let buildPaths = ['build_vs2015', 'build_vs2017'].map(folder =>{
+let buildPaths = ['build_vs2015', 'build_vs2017', 'build'].map(folder =>{
     return path.join(process.env.S2API_ROOT || '', folder);
 });
 

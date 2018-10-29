@@ -104,10 +104,7 @@ NAN_METHOD(GetStats) {
 }
 
 std::string TagToStr(Tag tag) {
-	char buffer[_MAX_U64TOSTR_BASE16_COUNT];
-	_ui64toa(tag, buffer, 16);
-	std::string str(buffer);
-	return str;
+	return std::to_string(tag);
 }
 
 NAN_METHOD(GetUnits) {
@@ -122,7 +119,7 @@ NAN_METHOD(GetUnits) {
 }
 
 Tag StrToTag(char* str) {
-	return strtoull(str, NULL, 16);
+	return std::stoull(str);
 }
 
 NAN_METHOD(GetUnitClasses) {
