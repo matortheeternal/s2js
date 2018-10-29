@@ -119,7 +119,7 @@ NAN_METHOD(GetUnits) {
 }
 
 Tag StrToTag(char* str) {
-	return strtoull(str, NULL, 16);
+	return std::stoull(str);
 }
 
 NAN_METHOD(GetUnitClasses) {
